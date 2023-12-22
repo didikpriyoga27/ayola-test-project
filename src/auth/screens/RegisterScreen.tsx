@@ -9,7 +9,7 @@ const RegisterScreen = () => {
   return (
     <View>
       <Pressable onPress={() => navigate('OtpScreen')}>
-        <Text>Go To OTP</Text>
+        <Text className="text-blue-500">Go To OTP</Text>
       </Pressable>
     </View>
   );
