@@ -1,20 +1,29 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {Alert} from 'react-native';
 
+import db from '../../shared/database';
 import {StackParamList} from '../../shared/navigation/types';
+import {UserType} from '../types';
 
-type Values = {
-  name: string;
-  email: string;
-  phone: string;
-  username: string;
-  password: string;
-};
+type Values = UserType;
 
 const useFormRegister = () => {
   const {navigate} = useNavigation<NavigationProp<StackParamList>>();
+
   const onSubmit = (values: Values) => {
-    const {phone} = values;
-    navigate('OtpScreen', {phone});
+    const {name, email, username, password, phone} = values;
+    db.transaction(tx => {
+      tx.executeSql(
+        'INSERT INTO users (name, email, username, password, phone) VALUES (?, ?, ?, ?, ?)',
+        [name, email, username, password, phone],
+        () => {
+          navigate('OtpScreen', values);
+        },
+        error => {
+          Alert.alert('Error', String(error));
+        },
+      );
+    });
   };
 
   const validate = (values: Values) => {

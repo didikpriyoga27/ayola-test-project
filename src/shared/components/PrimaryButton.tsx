@@ -21,7 +21,9 @@ const PrimaryButton: FC<Props> = ({
       }`}
       {...props}>
       {leftComponent}
-      <Text className="text-center text-base text-white">{text}</Text>
+      <Text className="text-center text-base text-white font-semibold">
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };

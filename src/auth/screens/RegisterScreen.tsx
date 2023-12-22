@@ -1,6 +1,7 @@
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Field, Form} from 'react-final-form';
-import {ScrollView} from 'react-native';
+import {Pressable, ScrollView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import BaseLayout from '../../shared/components/BaseLayout';
@@ -11,13 +12,19 @@ import TextInput from '../../shared/components/TextInput';
 import View from '../../shared/components/View';
 import EyeIcon from '../../shared/icons/EyeIcon';
 import EyeSlashIcon from '../../shared/icons/EyeSlashIcon';
+import {StackParamList} from '../../shared/navigation/types';
 import useFormRegister from '../hooks/useFormRegister';
 
 const RegisterScreen = () => {
   const {bottom} = useSafeAreaInsets();
+  const {navigate} = useNavigation<NavigationProp<StackParamList>>();
   const {onSubmit, validate} = useFormRegister();
 
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+
+  const handleLogin = () => {
+    navigate('LoginScreen');
+  };
 
   return (
     <BaseLayout>
@@ -119,11 +126,14 @@ const RegisterScreen = () => {
                   </Field>
                 </View>
               </ScrollView>
-              <PrimaryButton
-                className="mx-4"
-                onPress={handleSubmit}
-                text="Submit"
-              />
+              <View className="mx-4 space-y-4">
+                <PrimaryButton onPress={handleSubmit} text="Submit" />
+                <Pressable onPress={handleLogin}>
+                  <Text className="text-center text-red-500 font-semibold text-base">
+                    Login
+                  </Text>
+                </Pressable>
+              </View>
             </View>
           );
         }}
