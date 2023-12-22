@@ -1,7 +1,14 @@
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+
+import {StackParamList} from '../../shared/navigation/types';
+
 type Values = {name: string; email: string; username: string; password: string};
 
 const useFormRegister = () => {
-  const onSubmit = () => {};
+  const {navigate} = useNavigation<NavigationProp<StackParamList>>();
+  const onSubmit = () => {
+    navigate('OtpScreen');
+  };
 
   const validate = (values: Values) => {
     const errors: any = {};

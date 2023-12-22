@@ -1,9 +1,11 @@
 import React, {FC, PropsWithChildren} from 'react';
-import {KeyboardAvoidingView, Platform, View} from 'react-native';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+
+import View from './View';
 
 const BaseLayout: FC<PropsWithChildren> = ({children}) => {
   return (
-    <View>
+    <View className="flex-1">
       <KeyboardAvoidingView
         className={'flex-1'}
         behavior={Platform.select({ios: 'padding', android: 'height'})}

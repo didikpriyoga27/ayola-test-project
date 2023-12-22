@@ -11,7 +11,7 @@ import Text from './Text';
 import View from './View';
 
 export type CustomTextInputProps = {
-  label: string;
+  label?: string;
   leftComponent?: ReactNode;
   leftComponentOnPress?: () => void;
   rightComponent?: ReactNode;
