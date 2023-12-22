@@ -16,7 +16,7 @@ const PrimaryButton: FC<Props> = ({
 }) => {
   return (
     <TouchableOpacity
-      className={`flex-row items-center justify-center space-x-2 rounded-full bg-emerald-500 py-4 ${className} ${
+      className={`flex-row items-center justify-center space-x-2 rounded-full bg-red-500 py-4 ${className} ${
         props.disabled && 'opacity-50'
       }`}
       {...props}>

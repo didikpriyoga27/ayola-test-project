@@ -1,10 +1,15 @@
-type Values = {email: string; username: string; password: string};
+type Values = {name: string; email: string; username: string; password: string};
 
 const useFormRegister = () => {
   const onSubmit = () => {};
 
   const validate = (values: Values) => {
     const errors: any = {};
+
+    // Name validation
+    if (!values.name) {
+      errors.name = 'Name is required';
+    }
 
     // Email validation
     if (!values.email) {
