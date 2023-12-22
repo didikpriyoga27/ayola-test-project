@@ -1,4 +1,8 @@
 export type StackParamList = {
   RegisterScreen: undefined;
-  OtpScreen: undefined;
+  OtpScreen: {
+    phone: string;
+  };
+  LoginScreen: undefined;
+  HomeScreen: undefined;
 };

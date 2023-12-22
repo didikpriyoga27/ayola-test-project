@@ -36,15 +36,15 @@ const TextInput: FC<Props> = props => {
 
   return (
     <View>
-      <Text className="mb-1 text-xs text-text-secondary">{label}</Text>
+      <Text className="mb-1 text-sm text-text-secondary">{label}</Text>
       <View className="flex-row">
         <RNTextInput
-          className={`flex-1 rounded border border-gray-200 px-4 py-3 text-sm ${
+          className={`flex-1 rounded border border-gray-200 px-4 pt-2 pb-3 text-sm ${
             restProps.multiline && 'h-20'
           }`}
           style={[
             restProps.multiline && {textAlignVertical: 'top'},
-            Boolean(leftComponent) && {paddingLeft: 40},
+            Boolean(leftComponent) && {paddingLeft: 48},
           ]}
           placeholder={placeholder ?? `Enter ${label}`}
           placeholderTextColor={'#ACAEB8'}

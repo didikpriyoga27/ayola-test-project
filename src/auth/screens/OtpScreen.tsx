@@ -1,5 +1,12 @@
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Alert,
   NativeSyntheticEvent,
   Pressable,
   ScrollView,
@@ -11,10 +18,13 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import BaseLayout from '../../shared/components/BaseLayout';
 import Text from '../../shared/components/Text';
 import View from '../../shared/components/View';
+import {StackParamList} from '../../shared/navigation/types';
 import useCountdownTimer from '../hooks/useCountdowntimer';
 
 const OtpScreen = () => {
   const {bottom} = useSafeAreaInsets();
+  const {navigate} = useNavigation<NavigationProp<StackParamList>>();
+  const {params} = useRoute<RouteProp<StackParamList, 'OtpScreen'>>();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [shouldResetTimer, setShouldResetTimer] = useState(false);
 
@@ -29,6 +39,19 @@ const OtpScreen = () => {
 
       if (value && inputRefs.current[index + 1]) {
         inputRefs.current[index + 1].focus();
+      }
+
+      const isOtpComplete = newOtp.every(digit => /^\d$/.test(digit));
+      if (isOtpComplete) {
+        const combinedOtp = newOtp.join('');
+        if (combinedOtp === '111111') {
+          navigate('LoginScreen');
+        } else {
+          Alert.alert('Invalid OTP', 'Please input valid OTP');
+          newOtp.fill('', 0);
+          setOtp(newOtp);
+          inputRefs.current[0]?.focus();
+        }
       }
     }
   };
@@ -76,9 +99,10 @@ const OtpScreen = () => {
               {'Enter Authentication Code'}
             </Text>
             <Text className="text-base text-center">
-              {
-                'Enter the 6-digit that we have sent via the phone number to +62882-25629-000'
-              }
+              {`Enter the 6-digit that we have sent via the phone number to +62 ${params.phone.replace(
+                /\B(?=(\d{4})+(?!\d))/g,
+                '-',
+              )}`}
             </Text>
           </View>
           <View className="flex-1 flex-row justify-evenly">

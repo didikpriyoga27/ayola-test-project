@@ -2,12 +2,19 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 import {StackParamList} from '../../shared/navigation/types';
 
-type Values = {name: string; email: string; username: string; password: string};
+type Values = {
+  name: string;
+  email: string;
+  phone: string;
+  username: string;
+  password: string;
+};
 
 const useFormRegister = () => {
   const {navigate} = useNavigation<NavigationProp<StackParamList>>();
-  const onSubmit = () => {
-    navigate('OtpScreen');
+  const onSubmit = (values: Values) => {
+    const {phone} = values;
+    navigate('OtpScreen', {phone});
   };
 
   const validate = (values: Values) => {
@@ -23,6 +30,13 @@ const useFormRegister = () => {
       errors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(values.email)) {
       errors.email = 'Invalid email address';
+    }
+
+    // Phone number validation
+    if (!values.phone) {
+      errors.phone = 'Phone number is required';
+    } else if (!/^\d{11,12}$/.test(values.phone)) {
+      errors.phone = 'Phone number must be between 11 and 12 digits';
     }
 
     // Username validation

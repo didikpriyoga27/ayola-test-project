@@ -6,16 +6,15 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import BaseLayout from '../../shared/components/BaseLayout';
 import Image from '../../shared/components/Image';
 import PrimaryButton from '../../shared/components/PrimaryButton';
-import Text from '../../shared/components/Text';
 import TextInput from '../../shared/components/TextInput';
 import View from '../../shared/components/View';
 import EyeIcon from '../../shared/icons/EyeIcon';
 import EyeSlashIcon from '../../shared/icons/EyeSlashIcon';
-import useFormRegister from '../hooks/useFormRegister';
+import useFormLogin from '../hooks/useFormLogin';
 
-const RegisterScreen = () => {
+const LoginScreen = () => {
   const {bottom} = useSafeAreaInsets();
-  const {onSubmit, validate} = useFormRegister();
+  const {onSubmit, validate} = useFormLogin();
 
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
@@ -35,55 +34,6 @@ const RegisterScreen = () => {
                   className="self-center"
                   resizeMode="contain"
                 />
-                <View>
-                  <Field name="name">
-                    {({input, meta}) => {
-                      const {value, onChange} = input;
-                      return (
-                        <TextInput
-                          label="Name"
-                          autoCapitalize="words"
-                          {...{value, onChange, meta}}
-                        />
-                      );
-                    }}
-                  </Field>
-                </View>
-                <View>
-                  <Field name="email">
-                    {({input, meta}) => {
-                      const {value, onChange} = input;
-                      return (
-                        <TextInput
-                          label="Email"
-                          keyboardType="email-address"
-                          autoCapitalize="none"
-                          {...{value, onChange, meta}}
-                        />
-                      );
-                    }}
-                  </Field>
-                </View>
-                <View>
-                  <Field name="phone">
-                    {({input, meta}) => {
-                      const {value, onChange} = input;
-                      return (
-                        <TextInput
-                          label="Phone Number"
-                          keyboardType="number-pad"
-                          leftComponent={<Text>+62</Text>}
-                          autoCapitalize="none"
-                          onChangeText={text => {
-                            const numericValue = text.replace(/[^0-9]/g, '');
-                            onChange(numericValue);
-                          }}
-                          {...{value, meta}}
-                        />
-                      );
-                    }}
-                  </Field>
-                </View>
                 <View>
                   <Field name="username">
                     {({input, meta}) => {
@@ -132,4 +82,4 @@ const RegisterScreen = () => {
   );
 };
 
-export default RegisterScreen;
+export default LoginScreen;
